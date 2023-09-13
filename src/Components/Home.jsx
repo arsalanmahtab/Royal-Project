@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import CountUp from 'react-countup';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -14,6 +14,59 @@ import city from '../Resources/images/city-solid.svg';
 import imgfour from '../Resources/images/imgfour.png';
 
 const Home = () => {
+
+    const [imagePosition, setImagePosition] = useState(-60); 
+
+    const testimonials = [
+        {
+          id: 1,
+          quote: '“I became worry less when I hired these people. These people have given me the results that I wanted. Exact estimation and cost prediction enabled me to say that they are matchless in its work”',
+          author: 'KAREN',
+        },
+        {
+          id: 2,
+          quote: '“My experience was amazing. They have equipped staff, proficient estimation, and pertinent response. All these factors have assured me the quality of the work.”',
+          author: 'MIKE ROSS',
+        },
+        // Add more testimonials as needed
+      ];
+    
+      const settings = {
+        dots: true,
+        infinite: true,
+        speed: 300,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPercentage = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+      const newPosition = -60 + scrollPercentage;
+      setImagePosition(newPosition);
+
+    
+      if (newPosition >= 0) {
+        window.removeEventListener('scroll', handleScroll); 
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+    
+      const imageStyle = {
+        position: 'absolute',
+        left: `${imagePosition}%`,
+        transition: 'left 0.5s',
+        width: 470,
+   
+
+      };
     return (
         <>
             <div className="mainimg">
@@ -28,9 +81,9 @@ const Home = () => {
             </div>
             <div className="mainsectiontwo">
                 <div className="row">
-                    <div className="col-md-5">
-                        <img className='imgone' src={imgone} alt="" />
-                    </div>
+                        <div className="col-md-5 imgsection">
+                            <img className='imgone' src={imgone} alt="" style={imageStyle} />
+                        </div>
                     <div className="col-md-6 colimgtxt" style={{ textAlign: "center" }}>
                         <h3 className='royaltxtthree'>
                             Our Estimating Assists Busy Contractors To Estimate And Win Bids
@@ -89,6 +142,7 @@ const Home = () => {
                             <h1 className='proservices'>Providing Professional Estimating Services</h1>
                             <p>We provide a dedicated construction cost estimator for the accurate and instant construction cost estimates at an affordable price tag for busy contractors. We are working as a professional cost estimating consulting company with years of experience.</p>
                             <div className="imgtxt" >
+                            <i class="fa-solid fa-house" style={{color: "#f50a0a;"}}></i>
                                 <img src={city} alt="" style={{width:"15%",border:"1px solid grey",padding:"20px"}} /> <p style={{marginTop:"30px",marginLeft:"-30px"}}> Quantity Takeffs </p>
                                 <img src={house} alt="" style={{width:"15%",border:"1px solid grey",padding:"20px" ,marginLeft:"25px"}} /> <p style={{marginTop:"30px",marginLeft:"-30px"}}> Cost Estimation </p>
                             </div>
@@ -114,6 +168,35 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div className="mainsectionseven clienttestimonials">
+                <div className="row">
+                    <div className="col-md-2"></div>
+                    <div className="col-md-4">
+                        <div className="clienttxt">
+                            <h2 style={{color:"#fff",fontWeight:"bold"}}>Our Client's Testimonials</h2>
+                        </div>
+
+                       
+                      
+                    </div>
+                    <div className="col-md-4">
+                   
+                        <div className="slider">
+                        <Slider {...settings}>
+                            {testimonials.map(testimonial => (
+                                <div key={testimonial.id}>
+                                <p style={{color:"#fff"}}>{testimonial.quote}</p>
+                                <p style={{color:"#cdab70"}}> {testimonial.author}</p>
+                                </div>
+                            ))}
+                            </Slider>
+                        </div>
+                    </div>
+                    <div className="col-md-2"></div>
+                </div>
+
             </div>
             <div className="mainsectionsix">
             </div>

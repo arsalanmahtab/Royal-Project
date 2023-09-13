@@ -1,3 +1,6 @@
+.container-fluid{
+  background: #000000;
+}
 .mainText{
     position: absolute;
         top: 50%;
@@ -64,11 +67,27 @@
     background-color: #000000;
 }
 
+
+.imgsection{
+  position: relative;
+
+}
+
 .imgone{
     width: 470px;
     max-width: 100%;
+    position: absolute;
+    left: -100%; 
+    transition: left 0.5s; 
    
 }
+
+
+.clienttestimonials{
+  background-image: url('../Resources/images/bg1.png');
+  padding: 50px;
+}
+
 
 
 
